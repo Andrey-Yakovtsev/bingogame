@@ -1,4 +1,5 @@
 import random
+from pprint import pprint
 
 max_card_nums = 15
 card = [
@@ -6,8 +7,11 @@ card = [
     [],
     []
 ]
-for string in range(1, 4):
-    def generate_card_string():
+
+
+def generate_card_strings():
+    card = []
+    for string in range(1, 4):
         a = 1
         b = 10
         line = []
@@ -16,7 +20,6 @@ for string in range(1, 4):
             line.append(number)
             a += 10
             b += 10
-
         i = 4
         while i > 0:
             x = random.randint(0, 8)
@@ -31,5 +34,26 @@ for string in range(1, 4):
             else:
                 line[x] = None
             i -= 1
-        return line
-    print(generate_card_string())
+        card.append(line)
+    return card
+
+
+def validate_card():
+    card = generate_card_strings()
+    # common = set(card[0]) & set(card[1]) & set(card[2])
+    common1 = set(card[0]) & set(card[1])
+    common2 = set(card[1]) & set(card[2])
+    common3 = set(card[0]) & set(card[2])
+    # print(common1)
+    # print(common2)
+    # print(common3)
+    set1 = common1 == common2
+    set2 = common2 == common3
+    set3 = common1 == common3
+
+    if set1 and set2 and set3:
+        return card
+    else:
+        return validate_card()
+
+pprint(validate_card())
