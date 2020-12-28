@@ -1,4 +1,4 @@
-import random
+import random, time
 from pprint import pprint
 
 max_card_nums = 15
@@ -64,12 +64,34 @@ def validate_card():
         for item in sorted(plain_card):
             if item == 0:
                 plain_card.remove(item)
-        # return sorted(plain_card)
-        return card
+        # return sorted(plain_card) # plain card
+        return card     # card 9x3
     else:
         return validate_card()
 
-pprint(validate_card())
+# pprint(validate_card())
 
-class Player:
-    pass
+
+
+def get_number_from_bag():
+    numbers_bag = list(range(1, 91))
+    while len(numbers_bag) > 0:
+        number = numbers_bag.pop(random.randint(0, (len(numbers_bag)-1)))
+        yield number
+
+for item in get_number_from_bag():
+    '''
+     Достаем число
+     Проверяем есть ли оно в карточках игроков. Как тут задействовать человека?
+     Если есть, то попаем из слиска.
+     Проверяем лину списка.
+     Если список пустой, игрок выиграл. Конец игры
+    '''
+    print(item)
+    if item in card:
+        card.pop(item)
+    else:
+        continue
+    if len(card) == 0:
+        print(f'Игрок {player} победил!')
+    time.sleep(3)
