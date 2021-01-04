@@ -60,6 +60,10 @@ class Player:
             return self.validate_card()
 
 def plainify_card(card):
+    '''
+    Deleting sub-levels and zeros from card.
+    :return: single leveled list without zeros
+    '''
     plain_card = []
     # make card a one line list to further easy poping
     plain_card.extend(card[0][0])
@@ -69,7 +73,7 @@ def plainify_card(card):
     for item in sorted(plain_card):
         if item == 0:
             plain_card.remove(item)
-    return sorted(plain_card) # plain card
+    return sorted(plain_card)   # plain card
 
 def get_user_answer():
     answer = str(input(f'У вас есть показанное число? Ответы: Y / N  '))

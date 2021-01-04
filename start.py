@@ -29,7 +29,7 @@ plain_pc_card = plainify_card(pc_cards)
 for item in get_number_from_bag():
     print(f'ВЫПАЛО ЧИСЛО ==> {item}')
     # answer = str(input(f'У вас есть число {item}? Ответы: Y / N  '))
-    # time.sleep(0.3)
+    time.sleep(0.3)
     # if answer == 'Y' or 'y':
     # print(get_user_answer())
     try:
@@ -48,29 +48,6 @@ for item in get_number_from_bag():
     elif len(plain_pc_card) == 0:
         print('Машины победили')
         break
-    print("Human ==>", len(plain_human_card))
-    print("PC ==>", len(plain_pc_card))
-'''
- Достаем число
- Проверяем есть ли оно в карточках игроков. Как тут задействовать человека?
- - выводим карточку игроков поочередно и если это человек - даем 3 секунды на да/нет
- Если есть, то попаем из списка.
- Проверяем длину списка.
- Если список пустой, игрок выиграл. Конец игры
+    print("Осталось чисел на карточке ЧЕЛОВЕКА  ==>", len(plain_human_card))
+    print("Осталось чисел на карточке PC ==>", len(plain_pc_card))
 
- Создать:
- Экземпляр игрока
- У него экземпляр карточки
- У карточки д.б. метод ПОП - для проверки и удаления числа
- Если карточка пустая - игрок выиграл
-print(item)
-'''
-
-'''
-if item in card:
-    card.pop(item)
-else:
-    continue
-if len(card) == 0:
-    print(f'Игрок {player} победил!')
-'''
