@@ -1,5 +1,6 @@
 import random
 import time
+from threading import Thread
 
 
 class Player:
@@ -59,6 +60,39 @@ class Player:
         else:
             return self.validate_card()
 
+class PlayersThread(Thread, Player):
+
+    def __init__(self, name):
+        """Инициализация потока"""
+        Thread.__init__(self)
+        self.name = name
+
+
+    def run(self):
+        """Запуск потока"""
+        time.sleep(1)
+        card = self.validate_card()
+        # print(card)
+        msg = "%s card is: " % self.name
+        plain_card = plainify_card(card)
+        print(msg)
+        print(card)
+        print(plain_card)
+
+
+
+def pc_players_threads(count):
+    for i in range(count):
+        name = "PC_player #%s" % (i+1)
+        thread = PlayersThread(name)
+        thread.start()
+
+def human_players_threads(count):
+    for i in range(count):
+        name = "Human_player #%s" % (i+1)
+        thread = PlayersThread(name)
+        thread.start()
+
 def plainify_card(card):
     '''
     Deleting sub-levels and zeros from card.
@@ -66,9 +100,9 @@ def plainify_card(card):
     '''
     plain_card = []
     # make card a one line list to further easy poping
-    plain_card.extend(card[0][0])
-    plain_card.extend(card[0][1])
-    plain_card.extend(card[0][2])
+    plain_card.extend(card[0])
+    plain_card.extend(card[1])
+    plain_card.extend(card[2])
     # deleting zeros
     for item in sorted(plain_card):
         if item == 0:
