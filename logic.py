@@ -100,9 +100,9 @@ def plainify_card(card):
     '''
     plain_card = []
     # make card a one line list to further easy poping
-    plain_card.extend(card[0])
-    plain_card.extend(card[1])
-    plain_card.extend(card[2])
+    plain_card.extend(card[0][0])
+    plain_card.extend(card[0][1])
+    plain_card.extend(card[0][2])
     # deleting zeros
     for item in sorted(plain_card):
         if item == 0:
