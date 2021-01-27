@@ -1,6 +1,4 @@
 import random
-import time
-from threading import Thread
 
 
 class Player:
@@ -12,17 +10,17 @@ class Player:
         '''
         card = []
         for string in range(1, 4):
-            a = 1
-            b = 10
+            start_num = 1
+            end_num = 10
             line = []
             for item in range(1, 10):
                 # generating numbers in card line
-                number = random.randint(a, b)
+                number = random.randint(start_num, end_num)
                 line.append(number)
-                a += 10
-                b += 10
-            i = 4
-            while i > 0:
+                start_num += 10
+                end_num += 10
+            iter_num = 4
+            while iter_num > 0:
                 x = random.randint(0, 8)
                 # genegating random None and checking its indexes,
                 if line[x] == 0:
@@ -30,12 +28,12 @@ class Player:
                         j = 1
                         while not line[int(x)-j]:
                             line[int(x)-j] = 0
-                            j+=1
+                            j += 1
                     else:
                         line[int(x)+1] = 0
                 else:
                     line[x] = 0
-                i -= 1
+                iter_num -= 1
             # check if zeros less than 4 ==> replace max to 0
             if line.count(0) < 4:
                 line[line.index(max(line))] = 0
@@ -60,38 +58,6 @@ class Player:
         else:
             return self.validate_card()
 
-class PlayersThread(Thread, Player):
-
-    def __init__(self, name):
-        """Инициализация потока"""
-        Thread.__init__(self)
-        self.name = name
-
-
-    def run(self):
-        """Запуск потока"""
-        time.sleep(1)
-        card = self.validate_card()
-        # print(card)
-        msg = "%s card is: " % self.name
-        plain_card = plainify_card(card)
-        print(msg)
-        print(card)
-        print(plain_card)
-
-
-
-def pc_players_threads(count):
-    for i in range(count):
-        name = "PC_player #%s" % (i+1)
-        thread = PlayersThread(name)
-        thread.start()
-
-def human_players_threads(count):
-    for i in range(count):
-        name = "Human_player #%s" % (i+1)
-        thread = PlayersThread(name)
-        thread.start()
 
 def plainify_card(card):
     '''
@@ -109,23 +75,9 @@ def plainify_card(card):
             plain_card.remove(item)
     return sorted(plain_card)   # plain card
 
-def get_user_answer():
-    answer = str(input(f'У вас есть показанное число? Ответы: Y / N  '))
-    time.sleep(3)
-    if not answer:
-        return False
-    elif answer == 'Y' or 'y':
-        return True
-    else:
-        return False
 
 def get_number_from_bag():
     numbers_bag = list(range(1, 91))
     while len(numbers_bag) > 0:
         number = numbers_bag.pop(random.randint(0, (len(numbers_bag)-1)))
         yield number
-
-
-
-
-
