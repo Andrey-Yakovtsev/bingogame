@@ -6,7 +6,7 @@ class BingoTests(TestCase):
     @classmethod
     def setUpClass(cls):
         cls.card = Player.generate_card(self=Player)
-        # cls.validated_card = Player.validate_card(self=Player)
+        # cls.card = Player.validate_card(self=Player.generate_card(self=Player))
 
     def test_card_in_not_empty(self):
         self.assertIsNotNone(self.card)
@@ -25,10 +25,15 @@ class BingoTests(TestCase):
         for i in range(3):
             self.assertEqual(self.card[i].count(0), 4)
 
-    # def test_card_is_list_type(self):
-    #     self.assertIsInstance(self.validated_card, list, )
 
 
-    # def test_if_number_in_range():
-    #     # проверяем, что бочонок в диапазоне от 1 до 90
-    #     pass
+class BingoTests2(TestCase):
+    # проверяем, что валидированая карточка может оставаться без нулей
+    @classmethod
+    def setUpClass(cls):
+        cls.card = Player.validate_card(self=Player)
+
+    def test_card_is_plain(self):
+        plain_card = plainify_card(self.card)
+        for i in plain_card:
+            self.assertIsNot(i, 0)
