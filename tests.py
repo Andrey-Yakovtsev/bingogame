@@ -5,8 +5,9 @@ class BingoTests(TestCase):
     # проверяем, что в карточка == список. В ней 15 номеров, 3 ряда, по 5 номеров больше нуля в каждом
     @classmethod
     def setUpClass(cls):
-        cls.card = Player.generate_card(self=Player)
-        # cls.card = Player.validate_card(self=Player.generate_card(self=Player))
+        cls.player = Player()
+        cls.card = cls.player.generate_card()
+        cls.valid_card = cls.player.validate_card()
 
     def test_card_in_not_empty(self):
         self.assertIsNotNone(self.card)
@@ -23,17 +24,8 @@ class BingoTests(TestCase):
 
     def test_card_has_4_zeroes(self):
         for i in range(3):
-            self.assertEqual(self.card[i].count(0), 4)
-
-
-
-class BingoTests2(TestCase):
-    # проверяем, что валидированая карточка может оставаться без нулей
-    @classmethod
-    def setUpClass(cls):
-        cls.card = Player.validate_card(self=Player)
+            self.assertEqual(self.valid_card[i].count(0), 4)
 
     def test_card_is_plain(self):
-        plain_card = plainify_card(self.card)
-        for i in plain_card:
+        for i in self.valid_card:
             self.assertIsNot(i, 0)
